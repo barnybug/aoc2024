@@ -26,6 +26,10 @@ def sign(i):
     return -1 if i < 0 else 1 if i > 0 else 0
 
 
+def split_numbers(s: str, separator: str = ","):
+    return [int(i) for i in s.split(separator)]
+
+
 class Point(NamedTuple):
     x: int
     y: int

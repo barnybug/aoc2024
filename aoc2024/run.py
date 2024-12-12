@@ -39,9 +39,7 @@ def run():
     parser = argparse.ArgumentParser()
     parser.add_argument("day", nargs="*", type=int)
     parser.add_argument("--time", action="store_true", help="Time runs")
-    parser.add_argument(
-        "--markdown", action="store_true", help="Format output in markdown"
-    )
+    parser.add_argument("--markdown", action="store_true", help="Format output in markdown")
     args = parser.parse_args()
 
     if args.day:
