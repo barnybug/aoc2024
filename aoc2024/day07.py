@@ -1,3 +1,5 @@
+import numpy as np
+
 from .utils import Answer, split_numbers
 
 
@@ -5,16 +7,15 @@ def valid(line: str, part2: bool):
     test, a = line.split(": ")
     test = int(test)
     vs = split_numbers(a, " ")
-    accs = [vs[0]]
+    accs = np.array(vs[:1])
     for v in vs[1:]:
-        additions = [a + v for a in accs]
-        products = [a * v for a in accs]
-        accs = (
-            additions
-            + products
-            + ([a * 10 ** len(str(v)) + v for a in accs] if part2 else [])
-        )
-        accs = [a for a in accs if a <= test]
+        additions = accs + v
+        products = accs * v
+        if part2:
+            concats = accs * (10 ** len(str(v))) + v
+            accs = np.concat([additions, products, concats])
+        else:
+            accs = np.concat([additions, products])
 
     if test in accs:
         return test

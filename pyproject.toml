@@ -4,7 +4,7 @@ version = "2024.12.1"
 description = "Advent of Code 2024"
 requires-python = ">=3.13"
 
-dependencies = ["pytest"]
+dependencies = ["numpy", "pytest"]
 
 [project.scripts]
 day = "aoc2024.run:run"

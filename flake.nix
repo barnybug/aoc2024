@@ -1,6 +1,7 @@
 {
   description = "Adevent of Code 2024";
 
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   inputs.pyproject-nix.url = "github:pyproject-nix/pyproject.nix";
   inputs.pyproject-nix.inputs.nixpkgs.follows = "nixpkgs";
 
