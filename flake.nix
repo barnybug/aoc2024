@@ -1,5 +1,5 @@
 {
-  description = "Adevent of Code 2024";
+  description = "Advent of Code 2024";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   inputs.pyproject-nix.url = "github:pyproject-nix/pyproject.nix";
@@ -12,17 +12,23 @@
         projectRoot = ./.;
       };
 
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      python = pkgs.python313;
-
+      systems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      devShells.x86_64-linux.default =
+      devShells = forAllSystems(system: {
+        default =
         let
+          pkgs = nixpkgs.legacyPackages.${system};
+          python = pkgs.python313;
           arg = project.renderers.withPackages { inherit python; };
           pythonEnv = python.withPackages arg;
 
         in
         pkgs.mkShell { packages = [ pythonEnv ]; };
+      });
     };
 }
